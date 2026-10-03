@@ -56,6 +56,28 @@ Todas las apps siguen la misma estructura:
 
 ### 4. Configurar variables de entorno
 
+Copia la plantilla y completa los valores:
+
+```bash
+cp .env.example .env
+```
+
+Genera una `SECRET_KEY` nueva con:
+
+```bash
+python -c "from django.core.management.utils import get_random_secret_key as g; print(g())"
+```
+
+El entorno se elige con `DJANGO_SETTINGS_MODULE`:
+
+| Entorno | Módulo | Uso |
+|---------|--------|-----|
+| Desarrollo | `config.settings.dev` | Valor por defecto en `manage.py` |
+| Staging | `config.settings.staging` | Hereda de prod |
+| Producción | `config.settings.prod` | Valor por defecto en `wsgi.py` y `asgi.py` |
+
+Las variables del sistema tienen prioridad sobre el `.env`. Si `DB_NAME` está vacío, se usa SQLite.
+
 ### 5. Ejecutar migraciones
 
 ### 6. Ejecutar servidor
