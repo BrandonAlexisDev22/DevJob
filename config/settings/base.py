@@ -1,11 +1,11 @@
 """
-Configuración base compartida por todos los entornos.
+Base settings shared by all environments.
 
-Los valores sensibles se leen desde variables de entorno. Si existe un archivo
-.env en la raíz del proyecto, se carga automáticamente (las variables ya
-definidas en el sistema tienen prioridad sobre el .env).
+Sensitive values are read from environment variables. If a .env file exists
+at the project root, it is loaded automatically (variables already defined
+in the system take precedence over the .env file).
 
-Referencia completa de settings:
+Full settings reference:
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
@@ -22,6 +22,7 @@ load_dotenv(BASE_DIR / ".env")
 
 
 def env_bool(name, default=False):
+    """Read a boolean environment variable ("1", "true", "yes", "on" are truthy)."""
     value = os.environ.get(name)
     if value is None:
         return default
@@ -29,14 +30,16 @@ def env_bool(name, default=False):
 
 
 def env_list(name):
+    """Read a comma-separated environment variable as a list, skipping empty items."""
     return [item.strip() for item in os.environ.get(name, "").split(",") if item.strip()]
 
 
 def required_env(name):
+    """Read an environment variable, raising ImproperlyConfigured if it is missing or empty."""
     value = os.environ.get(name)
     if not value:
         raise ImproperlyConfigured(
-            f"Falta la variable de entorno {name}. Revisa tu archivo .env (ver .env.example)."
+            f"Missing environment variable {name}. Check your .env file (see .env.example)."
         )
     return value
 
@@ -104,7 +107,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-# Si DB_NAME está definido se usa PostgreSQL; si no, SQLite local.
+# PostgreSQL is used if DB_NAME is set; otherwise, a local SQLite database.
 
 if os.environ.get("DB_NAME"):
     DATABASES = {

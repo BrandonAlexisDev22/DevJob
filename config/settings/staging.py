@@ -1,7 +1,7 @@
 """
-Configuración de staging. Hereda de producción y solo cambia lo necesario.
+Staging settings. Inherits from production and only overrides what is needed.
 
-Uso: DJANGO_SETTINGS_MODULE=config.settings.staging
+Usage: DJANGO_SETTINGS_MODULE=config.settings.staging
 """
 
 from .prod import *  # noqa: F403

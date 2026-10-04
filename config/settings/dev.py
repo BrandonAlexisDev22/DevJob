@@ -1,7 +1,7 @@
 """
-Configuración de desarrollo local.
+Local development settings.
 
-Uso: DJANGO_SETTINGS_MODULE=config.settings.dev (valor por defecto en manage.py)
+Usage: DJANGO_SETTINGS_MODULE=config.settings.dev (default in manage.py)
 """
 
 from .base import *  # noqa: F403

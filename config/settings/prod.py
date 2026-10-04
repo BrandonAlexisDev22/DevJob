@@ -1,9 +1,9 @@
 """
-Configuración de producción.
+Production settings.
 
-Uso: DJANGO_SETTINGS_MODULE=config.settings.prod (valor por defecto en wsgi.py y asgi.py)
+Usage: DJANGO_SETTINGS_MODULE=config.settings.prod (default in wsgi.py and asgi.py)
 
-DEBUG siempre está apagado aquí, sin importar el valor de la variable DEBUG.
+DEBUG is always off here, regardless of the DEBUG environment variable.
 """
 
 from django.core.exceptions import ImproperlyConfigured
@@ -14,7 +14,7 @@ from .base import ALLOWED_HOSTS
 DEBUG = False
 
 if not ALLOWED_HOSTS:
-    raise ImproperlyConfigured("ALLOWED_HOSTS debe estar definido en producción.")
+    raise ImproperlyConfigured("ALLOWED_HOSTS must be set in production.")
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

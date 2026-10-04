@@ -1,11 +1,11 @@
 """
-Configuración de Django por entorno.
+Per-environment Django settings.
 
-Módulos disponibles:
-- config.settings.dev      (desarrollo local, usado por defecto en manage.py)
+Available modules:
+- config.settings.dev      (local development, default in manage.py)
 - config.settings.staging
-- config.settings.prod     (usado por defecto en wsgi.py y asgi.py)
+- config.settings.prod     (default in wsgi.py and asgi.py)
 
-Los secretos y valores por entorno se leen desde variables de entorno o desde
-un archivo .env en la raíz del proyecto (ver .env.example).
+Secrets and per-environment values are read from environment variables or
+from a .env file at the project root (see .env.example).
 """
