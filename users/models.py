@@ -19,7 +19,7 @@ class User(AbstractUser):
     last_name = models.CharField(max_length=20)
     email = models.EmailField(unique=True)
     # Optional, but must be unique when provided.
-    phone = models.CharField(unique=True, null=True, blank=True)
+    phone = models.CharField(max_length=20, unique=True, null=True, blank=True)
     role = models.CharField(
         max_length=20,
         choices=Role.choices,
