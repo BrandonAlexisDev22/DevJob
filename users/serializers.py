@@ -1,7 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from rest_framework import serializers
-
 from .models import User
 
 
@@ -89,3 +88,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         validated_data.pop("password_confirm", None)
         user = User.objects.create_user(**validated_data)
         return user
+
+class LoginSerializer():
+    pass
