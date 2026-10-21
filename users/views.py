@@ -8,16 +8,15 @@ from .serializers import RegisterSerializer, UserReadSerializer
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
-    def post(self,requests):
-        serializer = RegisterSerializer(data=requests.data)
+    def post(self,request):
+        serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        serializer.create()
         user = serializer.save()
         user_data = UserReadSerializer(user).data
         return Response (
             {
                 "message": "Usuario Registrado",
-                "User": user_data,
+                "user": user_data,
             },
             status = status.HTTP_201_CREATED
         )
