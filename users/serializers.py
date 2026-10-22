@@ -114,5 +114,5 @@ class LoginSerializer(serializers.Serializer):
         if not user.is_active:
             raise serializers.ValidationError({ "detail": f"{user.email} no se encuentra activada" })
         
-        attrs[user] = user
+        attrs["user"] = user
         return attrs
