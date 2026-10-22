@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 import os
 from pathlib import Path
-
+from datetime import timedelta
 from dotenv import load_dotenv
 from django.core.exceptions import ImproperlyConfigured
 
@@ -51,6 +51,13 @@ SECRET_KEY = required_env("SECRET_KEY")
 DEBUG = env_bool("DEBUG", False)
 
 ALLOWED_HOSTS = env_list("ALLOWED_HOSTS")
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+}
 
 
 # Application definition
