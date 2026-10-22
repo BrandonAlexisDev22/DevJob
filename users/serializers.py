@@ -1,5 +1,6 @@
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
+from django.contrib.auth import authenticate
 from rest_framework import serializers
 from .models import User
 
@@ -89,5 +90,29 @@ class RegisterSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         return user
 
-class LoginSerializer():
-    pass
+class LoginSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    password = serializers.CharField(
+            write_only=True,
+            required=True,
+            style={"input_type": "password"},
+            help_text="Contraseña para la cuenta del usuario.",
+        )
+    
+    def validate(self,attrs):
+        email = attrs.get("email","").lower().strip()
+        password = attrs.get("password")
+        user = authenticate(
+            request=self.context.get("requests"),
+            username=email,
+            password=password
+        )
+        
+        if not user:
+            raise serializers.ValidationError({ "detail": "Credenciales invalidas, Porfavor Verifica Correo y Contraseña" })
+        
+        if not user.is_active:
+            raise serializers.ValidationError({ "detail": f"{user.email} no se encuentra activada" })
+        
+        attrs[user] = user
+        return attrs
